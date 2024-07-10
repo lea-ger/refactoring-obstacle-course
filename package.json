@@ -1,0 +1,21 @@
+{
+  "name": "code-smells-refactoring",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "node tests/test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.6.0",
+    "eslint": "^9.6.0",
+    "globals": "^15.8.0"
+  }
+}
