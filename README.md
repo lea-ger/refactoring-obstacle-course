@@ -11,12 +11,14 @@ Zusätzlich gilt, dass für Produkte mit dem Typ "Fotodruck" ab einer Anzahl 100
 ## Setup
 Installiere die Abhängigkeiten mit `npm install`.
 Wenn du bei den Aufgaben nicht weiterkommst, schau in den `solution` Branch für eine Musterlösung.
+Das Programm ausführen kannst du mit `npm run dev`.
 
 ## Aufgabe 1: Testing (optional)
 Best practice wäre es erstmal, einen Test für die bestehende Funktion zu schreiben.
 Schaue in die den Ordner `tests`.
 Dort findest du eine leere Testdatei.
 Schreibe anhand der Beschreibung, was die Funktion tun soll, einen oder mehrere Tests, die das Verhalten der Funktion überprüfen.
+Die Tests kannst du mit dem Befehl `npm run test` ausführen.
 
 ## Aufgabe 2: Linting (optional)
 Führe im Terminal den Befehl `npm run lint` aus.
