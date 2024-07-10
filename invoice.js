@@ -1,38 +1,39 @@
+import {Inventory} from "./inventory.js";
+import {ProductCalculatorFactory} from "./product.js";
+
+class Position {
+    constructor(product, amount) {
+        this.product = product;
+        this.amount = amount;
+    }
+
+    calculate () {
+        const productCalculator = ProductCalculatorFactory.create(this.product);
+        return productCalculator.calculate(this.amount);
+    }
+
+    toString(format) {
+        return `${this.product.name}: ${format(this.calculate())} (${this.amount} Stück)\n`;
+    }
+}
+
 export default class InvoiceCalculator {
     generateInvoice(invoice, products) {
+        const inventory = new Inventory(products)
         let totalAmount = 0;
-        const locale = "de-DE";
         let result = `Abrechnung für ${invoice.customer}\n`;
-        const format = new Intl.NumberFormat("de-DE",
-            {
-                style: "currency", currency: "EUR",
-                minimumFractionDigits: 2
-            }).format;
 
         for (let product of invoice.positions) {
-            let out = this.calculateAndPrint(product, products, result, format, totalAmount);
-            result = out.result;
-            totalAmount = out.totalAmount;
+            const position = new Position(inventory.getProduct(product.productId), product.amount);
+            result += position.toString(this.getFormat());
+            totalAmount += position.calculate();
         }
-        result += `Rechnungsbetrag ${format(totalAmount)}\n`;
+        result += `Rechnungsbetrag ${this.getFormat()(totalAmount)}\n`;
 
         return result;
     }
 
-    calculateAndPrint(prod, products, result, format, totalAmount) {
-        const product = products[prod.productId];
-        let thisAmount = 0;
-        if (product.type === "photo" && prod.amount >= 100) {
-            thisAmount += product.price * prod.amount * 0.8;
-        } else if (product.type === "photo") {
-            thisAmount += product.price * prod.amount;
-        } else if (product.type === "poster") {
-            thisAmount += product.price * prod.amount;
-        } else {
-            throw new Error(`Unbekannter Typ: ${product.type}`);
-        }
-        result += `${product.name}: ${format(thisAmount)} (${prod.amount} Stück)\n`;
-        totalAmount += thisAmount;
-        return {totalAmount, result};
+    getFormat() {
+        return new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR"}).format;
     }
 }

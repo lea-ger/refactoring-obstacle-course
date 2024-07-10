@@ -3,7 +3,7 @@ import pluginJs from "@eslint/js";
 
 
 export default [
-  /* {
+   {
     languageOptions: { globals: globals.browser },
     rules: {
       "max-lines-per-function": ["warn", { max: 14 }],
@@ -12,5 +12,5 @@ export default [
       "camelcase": ["warn"],
     }
   },
-  pluginJs.configs.recommended, */
+  pluginJs.configs.recommended,
 ];
